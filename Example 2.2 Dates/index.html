@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Календарь</title>
+    <link href="css/style.css" rel="stylesheet" />
+    <script src="js/helpers.js"></script>
+    <script src="js/handles.js"></script>
+</head>
+
+<body onload="handleLoad();">
+    <div class="container">
+        <h1>Калькулятор дней</h1>
+        <div class="dates-container">
+            <div class="startDate-container">
+                <label for="startDateInput">Начальная дата</label>
+                <input type="date" id="startDateInput" onchange="handleStartDateChange();" />
+                <span id="startDateWeekday"></span>
+            </div>
+            <div class="endDate-container">
+                <label for="endDateInput">Конечная дата</label>
+                <input type="date" id="endDateInput" onchange="handleEndDateChange();" />
+                <span id="endDateWeekday"></span>
+            </div>
+            <div class="include-container">
+                <input type="checkbox" id="includeEndDateInput" checked onchange="handleIncludeEndDateChange();" />
+                <label for="includeEndDateInput">включая конечную дату</label>
+            </div>
+        </div>
+
+        <div class="periods-container">
+            <div>
+                <input type="number" id="daysInput" min="1" value="0" readonly />
+                <label for="daysInput" id="daysLabel">день</label>
+            </div>
+            <div>
+                <input type="number" id="weeksInput" min="0" value="0" readonly />
+                <label for="weeksInput" id="weeksLabel">недель</label>
+                <input type="number" id="weekDaysInput" min="1" value="1" readonly />
+                <label for="weekDaysInput" id="weekDaysLabel">день</label>
+            </div>
+
+            <div>
+                <input type="number" id="monthsInput" min="0" value="0" readonly />
+                <label for="monthsInput" id="monthsLabel">месяцев</label>
+                <input type="number" id="monthDaysInput" min="1" value="1" readonly />
+                <label for="weekDaysInput" id="monthDaysLabel">день</label>
+            </div>
+
+            <div>
+                <input type="number" id="yearsInput" min="0" value="0" readonly />
+                <label for="yearsInput" id="yearsLabel">лет</label>
+                <input type="number" id="yearMonthsInput" min="0" value="0" readonly />
+                <label for="yearMonthsInput" id="yearMonthsLabel">месяцев</label>
+                <input type="number" id="yearDaysInput" min="1" value="1" readonly />
+                <label for="yearDaysInput" id="yearDaysLabel">день</label>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

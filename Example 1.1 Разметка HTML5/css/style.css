@@ -1,0 +1,222 @@
+/* Общие настройки для всех тегов:
+    - шрифт по умолчанию без засечек
+    - отступы внутри и снаружи отсутствуют
+    - ширина и высота элемента включает его рамку
+    - для демонстрации рамки вокруг всех блоков
+*/
+
+* {
+	font-family: sans-serif;
+	box-sizing: border-box;
+	/*border: 10px solid red;*/
+}
+
+/* ТЕЛО СТРАНИЦЫ
+   Растягивается по высоте, если страница меньше экрана
+*/
+
+body {
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+main {
+	flex: 1;
+}
+
+/* ЦВЕТОВАЯ СХЕМА
+   Осенняя гамма
+   - небесная шапка
+   - золотое меню
+   - оранжевые/персиковые заголовки и ссылки
+   - темно-синий подвал
+*/
+
+body {
+	background-color: #FFF;
+							color: #000;
+}
+
+header {
+	background-color: #8BB8E0;
+							color: #FFE;
+}
+
+nav {
+	background-color: #FFCC2E;
+}
+
+nav a {
+							color: #896A08;
+}
+
+nav a:hover {
+	background-color: #FFDD73;
+}
+
+nav .selected {
+	background-color: #EFBC1E;
+}
+
+h2, h3, h4, h5, h6 {
+	background-color: #FF9473;
+							color: #A62800;
+}
+
+a {
+							color: #A62800;
+}
+
+footer {
+	background-color: #073459;
+							color: #6DACE0;
+}
+
+table {
+		border: 1px solid #A62800;
+}
+
+thead th {
+ 							 color: #A62800;
+  		border-bottom: 1px dashed #A62800;
+}
+
+tfoot th {
+  		border-top: 1px dashed #A62800;
+}
+
+tr:hover td {
+	background-color: #FF9473;
+}
+
+/* ШАПКА САЙТА
+   Логотип + название
+*/
+
+header {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+h1 {
+	font-weight: 800;
+	width: 100%;
+	text-align: center;
+}
+
+.logo {
+	height: 100px;
+	margin: 8px 22px;
+}
+
+/* МЕНЮ
+   Ссылки-кнопки
+*/
+
+nav {
+	text-align: center;
+}
+
+nav ul {
+	list-style: none;
+	display: inline-block;
+	margin: 6px 0;
+}
+
+nav li {
+	display: inline-block;
+	min-width: 120px;
+}
+
+nav a {
+	display: block;
+	padding: 8px 6px;
+	text-decoration: none;
+}
+
+nav a:hover {
+	font-weight: bold;
+}
+
+/* ОСНОВНАЯ ЧАСТЬ */
+
+main {
+	display: flex;
+	margin: 1em 12px;
+}
+
+section, article {
+	width: 100%;
+}
+
+h2, h3, h4, h5, h6 {
+	/* Перед заголовками оставлять одну пустую строку */
+	margin: 1em 0 0.5em;
+	padding: 2px 5pt;
+}
+
+/* БОКОВИК */
+
+aside {
+	width: auto;
+	max-width: 25%;
+	margin: 12px 0 0 12px;
+}
+
+.adv {
+	width: 240px;
+	height: 400px;
+	border: 1px solid grey;
+	padding: 6px;
+	font-size: 90%;
+}
+
+/* ПОДВАЛ */
+
+footer {
+	min-height: 36px;
+	text-align: center;
+	font-size: smaller;
+	padding: 6px;
+}
+
+/* ТАБЛИЦЫ */
+
+table {
+	width: 100%;
+}
+
+caption {
+	font-weight: bolder;
+}
+
+th {
+	padding: 12px 17px;
+}
+
+td {
+	padding: 4px 12px;
+}
+
+tfoot {
+	text-align: left;
+	font-weight: bold;
+}
+
+/* ВЫРАВНИВАНИЕ */
+
+.lft {
+	text-align: left;
+}
+
+.ctr {
+	text-align: center;
+}
+
+.rgt {
+	text-align: right;
+}

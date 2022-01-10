@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Closure</title>
+    <script>
+        function getLocalCounter() {
+            let counter = 0;
+            return () => ++counter;
+        }
+        let globalCounter = 0;
+
+        function getGlobalCounter() {
+            return () => ++globalCounter;
+        }
+
+        function clickHandler(button, getCounter) {
+            if (!button.counter)
+                button.counter = getCounter();
+            console.log(button);
+            button.innerText = "Значение счетчика: " + button.counter();
+        }
+    </script>
+</head>
+
+<body>
+    <div>
+        <p>Локальные счетчики</p>
+        <button onClick="clickHandler(this, getLocalCounter);">Click</button>
+        <button onClick="clickHandler(this, getLocalCounter);">Click</button>
+        <button onClick="clickHandler(this, getLocalCounter);">Click</button>
+    </div>
+    <div>
+        <p>Глобальный счетчик</p>
+        <button onClick="clickHandler(this, getGlobalCounter);">Click</button>
+        <button onClick="clickHandler(this, getGlobalCounter);">Click</button>
+    </div>
+</body>
+
+</html>

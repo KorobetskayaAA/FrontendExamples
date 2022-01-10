@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="author" content="А.А. Коробецкая"/>
+	<meta name="description" content="Демонстрация тегов HTML5 и flex-разметки"/>
+	<meta name="keywords" content="HTML5,CSS,Table,таблица"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<title>Сайт на HTML5 - Главная</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="css/rating.css"/>
+</head>
+
+
+
+<body>
+
+
+<header>
+	<img class="logo" src="img/circle_logo.png">
+	<h1>Название сайта</h1>
+</header>
+
+
+<nav>
+	<ul>
+		<li><a href="index.html">Главная</a></li>
+		<li><a href="photos.html">Галерея</a></li>
+		<li><a href="#" class="selected">Рейтинг</a></li>
+		<li><a href="contacts.html">Контакты</a></li>
+	</ul>
+</nav>
+
+
+<main>
+	<section>
+		<h2>Рейтинг времен года</h2>
+		<p>
+			Значимость этих проблем настолько очевидна, что дальнейшее развитие различных форм деятельности способствует подготовки и реализации системы обучения кадров, соответствует насущным потребностям. Значимость этих проблем настолько очевидна, что дальнейшее развитие различных форм деятельности позволяет оценить значение направлений прогрессивного развития. Повседневная практика показывает, что дальнейшее развитие различных форм деятельности влечет за собой процесс внедрения и модернизации существенных финансовых и административных условий. Разнообразный и богатый опыт новая модель организационной деятельности позволяет выполнять важные задания по разработке форм развития. Таким образом постоянное информационно-пропагандистское обеспечение нашей деятельности требуют определения и уточнения новых предложений.
+		</p>
+		<table class="rating-table">
+			<caption>Итоги голосования за любимое время года</caption>
+			<thead>
+				<tr>
+				    <th colspan=2>Время года</th>  <th>Число голосов</th>  <th>Доля</th>    
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+				    <td><img src="img/icon-spring.svg"/></td>  <td>Весна</td>  <td class="rgt">4</td>  <td class="rgt">20%</td>    
+				</tr>
+				<tr>
+				    <td><img src="img/icon-summer.svg"/></td>  <td>Лето</td>  <td class="rgt">8</td>  <td class="rgt">40%</td>    
+				</tr>
+				<tr>
+				    <td><img src="img/icon-autumn.svg"/></td>  <td>Осень</td>  <td class="rgt">3</td>  <td class="rgt">15%</td>    
+				</tr>
+				<tr>
+				    <td><img src="img/icon-winter.svg"/></td>  <td>Зима</td>  <td class="rgt">2</td>  <td class="rgt">10%</td>    
+				</tr>
+				<tr>
+				    <td class="ctr">-</td>  <td>Воздержались</td>  <td class="rgt">3</td>  <td class="rgt">15%</td>    
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+				    <th colspan=2>Всего</th>  <th class="rgt">20</th>  <th class="rgt">100%</th>    
+				</tr>
+			</tfoot>
+		</table>
+	</section>
+
+	<aside>
+		<div class="adv">
+			Университет развивает все способности, в том числе и глупость. (А. Чехов)
+		</div>
+	</aside>		
+
+</main>
+
+
+<footer>&copy; Коробецкая А.А. 2019 демо-сайт для студентов СГЭУ</footer>
+
+
+</body>
+
+</html>

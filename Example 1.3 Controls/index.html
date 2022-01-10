@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <title>Controls</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script type="text/javascript">
+        function thanks() {
+            thanks_button.value = "Спасибо!";
+            thanks_button.disabled = true;
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Controls</h1>
+    <form name="user" action="hello.html">
+        <p><label for="username">Имя пользователя:</label>
+            <div>
+                <input type="text" id="username" size="9" maxlength="5" placeholder="Ваше имя" required>
+            </div>
+        </p>
+        <p>Электронная почта:
+            <div>
+                <input type="email" name="useremail" placeholder="Ваш email" required>
+            </div>
+
+        </p>
+        <p>
+            <label>
+                Пароль:
+                <input type="password" name="userpass" maxlength=16 size=16 required>
+            </label>
+        </p>
+        <p>
+            Пол:
+            <input type="radio" id="gendermale" name="usergender" value="male" checked>
+            <label for="gendermale">мужской</label>
+            <input type="radio" id="genderfemale" name="usergender" value="female">
+            <label for="genderfemale">женский</label>
+        </p>
+        <p>
+            Любимые предметы:
+            <div><input type="checkbox" name="categories" value="programing" checked>Программирование</div>
+            <div><input type="checkbox" name="categories" value="math" checked>Математика</div>
+            <div><input type="checkbox" name="categories" value="english" checked>English</div>
+            <div><input type="checkbox" name="categories" value="marketing" checked>Маркетинг</div>
+            <div><input type="checkbox" name="categories" value="economy" checked>Экономика</div>
+        </p>
+
+        <p>
+            <input type="button" value="Кнопка 1" onclick="thanks();" id="thanks_button">
+            <button class="button">
+                <img src="img/icon-spring.svg" width="15px">
+                Кнопка 2
+            </button>
+            <div class="button">
+                <img src="img/icon-spring.svg" width="15px"> Кнопка 3
+            </div>
+            <a class="button">
+                <img src="img/icon-spring.svg" width="15px"> Кнопка 4
+            </a>
+        </p>
+
+        <p>Биография:
+            <div>
+                <textarea cols="16" rows="7" disabled>
+				Немного текста
+			</textarea>
+            </div>
+        </p>
+
+        <p>
+            Языки программирования:
+            <select size="4" multiple>
+                <option>Pascal</option>
+                <option>C#</option>
+                <option>JavaScript</option>
+                <option>Python</option>
+                <option>Go</option>
+            </select>
+        </p>
+        <input type="submit" value="Зарегистрироваться">
+        <input type="reset" value="Сброс">
+    </form>
+</body>
+
+</html>

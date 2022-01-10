@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang=ru>
+
+<!-- Источник: https://html5book.ru/adaptivnaya-vyorstka-sayta/ (доработано напильником) -->
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Адаптивная вёрстка сайта</title>
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,700,700italic|Playfair+Display:400,700&subset=latin,cyrillic">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <nav class="container">
+          <a class="logo" href="#">
+            <span>L</span>
+            <span>O</span>
+            <span>G</span>
+            <span>O</span>
+          </a>
+          <div class="nav-toggle"><span></span></div>
+          <form action="#" method="get" id="searchform">
+            <input type="text" placeholder="Искать на сайте...">
+            <button type="submit"><span class="fa fa-search"></span></button>
+          </form>
+          <menu>
+            <li><a href="#">Блог</a></li>
+            <li><a href="#">Портфолио</a></li>
+            <li><a href="#">Об авторе</a></li>
+          </menu>
+        </nav>
+    </header>
+  
+  
+    <div class="container">
+  
+      <div class="posts-list">
+        <article id="post-1" class="post">
+          <div class="post-image"><a href="#"><img src="img/spring.jpg" alt="Весна"></a></div>
+          <div class="post-content">
+            <div class="category"><a href="#">Дизайн</a></div>
+            <h2 class="post-title">Весна</h2>
+            <p>Очень богат русский язык словами, относящимися к временам года и к природным явлениям, с ними связанным.</p>
+            <div class="post-footer">
+              <a class="more-link" href="#">Продолжить чтение</a>
+              <div class="post-social">
+                <a href="#" target="_blank"><span class="fa fa-facebook"></span></a>
+                <a href="#" target="_blank"><span class="fa fa-twitter"></span></a>
+                <a href="#" target="_blank"><span class="fa fa-pinterest"></span></a>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article id="post-2" class="post">
+          ...
+        </article>
+      </div> <!-- class="posts-list"-->
+      
+      
+      <aside>
+          <div class="widget">
+            <h3 class="widget-title">Категории</h3>
+            <ul class="widget-category-list">
+              <li><a href="#">Дизайн</a> (2)</li>
+              <li><a href="#">Вёрстка</a> (5)</li>
+              <li><a href="#">Видео</a> (1)</li>
+            </ul>
+          </div>
+          <div class="widget">
+            <h3 class="widget-title">Последние записи</h3>
+            <ul class="widget-posts-list">
+              <li>
+                <div class="post-image-small">
+                  <a href="#"><img src="img/spring.jpg" alt="Весна"></a>
+                </div>
+                <h4 class="widget-post-title">Весна</h4>
+              </li>
+              <li>
+                <div class="post-image-small">
+                  <a href="#"><img src="img/summer.jpg" alt="Лето"></a>
+                </div>
+                <h4 class="widget-post-title">Лето</h4>
+              </li>
+              <li>
+                <div class="post-image-small">
+                  <a href="#"><img src="img/fall.jpg" alt="Осень"></a>
+                </div>
+                <h4 class="widget-post-title">Осень</h4>
+              </li>
+            </ul>
+          </div>
+          <div class="widget">
+            <h3 class="widget-title">Подписка на рассылку</h3>
+            <form action="#" method="post" id="subscribe">
+              <input type="email" name="email" placeholder="Ваш email" required>
+              <button type="submit"><span class="fa fa-paper-plane-o"></span></button>
+            </form>
+          </div>
+        </aside>
+    
+    </div> <!-- class="container"-->
+
+    <footer>
+      <div class="container">
+        <div class="footer-col"><span>Мой блог © 2016-2019</span></div>
+        <div class="footer-col">
+          <div class="social-bar-wrap">
+            <a title="Facebook" href="#" target="_blank"><span class="fa fa-facebook"></span></a>
+            <a title="Twitter" href="#" target="_blank"><span class="fa fa-twitter"></span></a>
+            <a title="Pinterest" href="#" target="_blank"><span class="fa fa-pinterest"></span></a>
+            <a title="Instagram" href="#" target="_blank"><span class="fa fa-instagram"></span></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <a href="mailto:admin@yoursite.ru">Написать письмо</a>
+        </div>
+      </div>
+    </footer>
+
+<script>
+    document.querySelector('.nav-toggle').onclick = function(){
+        document.querySelector('menu').classList.toggle("active");
+    }
+</script>
+    
+</body>
+
+</html>

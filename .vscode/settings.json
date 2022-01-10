@@ -1,0 +1,11 @@
+{
+    "editor.defaultFormatter": "HookyQR.beautify",
+    "editor.formatOnSave": true,
+    "beautify.language": {
+        "css": ["css", "scss"],
+        "html": ["htm", "html"]
+    },
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
+}

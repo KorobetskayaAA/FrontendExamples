@@ -1,0 +1,87 @@
+.calc {
+    width: 480px;
+    height: 300px;
+    max-width: 100%;
+    display: grid;
+    grid-template-areas: "o o o o""plus n7 n8 n9""minus n4 n5 n6""mul n1 n2 n3""div n0 dot eq";
+    gap: 6px;
+    border: 1px solid seagreen;
+    padding: 12px;
+}
+
+input {
+    font-family: monospace;
+    grid-area: o;
+    text-align: end;
+    font-size: 24px;
+    padding: 0.1em;
+}
+
+.calc button {
+    font-size: 18px;
+    padding: 0.5em;
+}
+
+.btn0 {
+    grid-area: n0;
+}
+
+.btn1 {
+    grid-area: n1;
+}
+
+.btn2 {
+    grid-area: n2;
+}
+
+.btn3 {
+    grid-area: n3;
+}
+
+.btn4 {
+    grid-area: n4;
+}
+
+.btn5 {
+    grid-area: n5;
+}
+
+.btn6 {
+    grid-area: n6;
+}
+
+.btn7 {
+    grid-area: n7;
+}
+
+.btn8 {
+    grid-area: n8;
+}
+
+.btn9 {
+    grid-area: n9;
+}
+
+.btnPlus {
+    grid-area: plus;
+}
+
+.btnMinus {
+    grid-area: minus;
+}
+
+.btnMul {
+    grid-area: mul;
+}
+
+.btnDiv {
+    grid-area: div;
+}
+
+.btnDot {
+    grid-area: dot;
+}
+
+.btnEq {
+    grid-area: eq;
+}

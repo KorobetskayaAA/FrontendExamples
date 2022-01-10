@@ -1,0 +1,59 @@
+input {
+    margin: 0.25em 0em;
+    min-width: 2em;
+    flex: 1;
+}
+
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1 {
+    font-size: 180%;
+    text-align: center;
+    border-bottom: 1px solid gray;
+    margin: 0;
+    margin-bottom: 1rem;
+}
+
+.container {
+    margin: auto;
+    width: 24rem;
+    max-width: 100%;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px gray;
+    padding: 1rem;
+    background-color: lavender;
+}
+
+.dates-container {
+    margin-bottom: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "start end""incl incl";
+    gap: 10%;
+}
+
+.startDate-container {
+    grid-area: start;
+    display: flex;
+    flex-direction: column;
+}
+
+.endDate-container {
+    grid-area: end;
+    display: flex;
+    flex-direction: column;
+}
+
+.include-container {
+    grid-area: incl;
+}
+
+.periods-container>div {
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    align-items: baseline;
+    gap: 0.5em;
+}

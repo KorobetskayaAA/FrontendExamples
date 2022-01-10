@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>PiedPiper</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet"> 
+</head>
+<body>
+
+<header>
+	<div class="container">
+		<a href="#">
+			<img class="logo" 
+					 src="img/logo.svg"
+					 alt="piedpiper">
+
+		</a>
+		<nav>
+			<li><a href="#problem">the problem</a></li>
+			<li><a href="#ppc">PiedPiperCoin</a></li>
+			<li><a href="#team">the team</a></li>
+		</nav>
+	</div>
+</header>
+
+<section class="jumbotron">
+	<div class="container">
+		<a name="jumbotron"/>
+		PiperNet Is Here
+	</div>
+</section>
+
+<section class="problem">
+	<div class="container">
+		<a name="problem"/>
+		<h2>The Problem</h2>
+		<p>Beneath the flashy homepages of your favorite sites lurk Hooli™ and other evil corporations out to hoard and sell your most personal data.</p>
+
+		<p>What was built to be the ultimate platform for the free sharing of knowledge has turned into a money-hungry monster feasting on our privacy and freedom.</p>
+
+		<p>But fear not, for Pied Piper has the answer! And it’s simple:<br>
+		An autonomous peer-to-peer network featuring distributed storage powered by universal compression, accelerated scheduling allocation, and end-to-end encryption.</p>
+
+		<p>Put even simpler — <strong>it’s the internet, completely decentralized.</strong></p>
+	</div>
+</section>
+
+<section class="hero">
+	<div class="container">
+		<a name="hero"/>
+		We’re in this together! All of our computers and phones join in a network to make the strongest supercomputer the world has ever seen.
+	</div>
+</section>
+
+<section class="ppc">
+	<div class="container">
+		<a name="ppc"/>
+		<h2>Introducing PiedPiperCoin</h2>
+		<img class="ppc-logo" src="img/ppc-logo.png">
+
+		<p>Pied Piper's new internet is built <em>for users, by users.</em>
+		You supply the storage, compute, and networking resources that power our entire decentralized web.</p>
+		<p>Now there's a way to give credit where credit is due. Compute credit, that is!
+		The more you share your device resources, the more PiedPiperCoin you receive.</p>
+
+		<p>Whether you're a developer with an app ready for market, or just an Average Joe with a smartphone you'll love all you can do with PiedPiperCoin.</p>
+	</div>
+</section>
+
+<section class="team">
+	<div class="container">
+		<a name="team"/>
+		<h2>The Team</h2>
+		<div class="team-grid">
+		<!--
+			<div class="team-item">
+				<img src="img/photo_RHendricks.png" alt="(Richard Hendricks Photo)">
+				<div class="team-name">Richard Hendricks</div>
+				<div class="team-position">Founder & CEO</div>
+			</div>
+-->
+			<script>
+				team = [
+					{photo:"photo_RHendricks.png", name:"Richard Hendricks", position:"Founder & CEO"},
+					{photo:"photo_DChugtai.png", name:"Dinesh Chugtai", position:"Senior Programmer"},
+					{photo:"photo_BGilfoyle.png", name:"Bertram Gilfoyle", position:"Chief Systems Architect"},
+					{photo:"photo_JDunn.png", name:"Jared Dunn", position:"Chief Operating Officer"},
+					{photo:"photo_MHall.png", name:"Monica Hall", position:"Chief Financial Officer"},
+					{photo:"photo_NBighetti.png", name:"Nelson Bighetti", position:"Majority Investor"},
+				];
+				for (var i in team) {
+					//console.log(team[i]);
+					document.write(
+						'<div class="team-item">' +
+							'<img src="img/' + team[i].photo + '" alt="(' + team[i].name + ' Photo)">' +
+							'<div class="team-name">' + team[i].name + '</div>' +
+							'<div class="team-position">' + team[i].position + '</div>' +
+						'</div>'
+					);
+				}
+			</script>
+		</div>
+	</div>
+</section>
+
+<footer>
+	<div class="container">
+		<div class="copy">
+			All other trademarks and copyrights are the property of their respective owners. Use of these names, trademarks and brands does not imply endorsement.
+		</div>
+	</div>
+</footer>
+
+</body>
+</html>
