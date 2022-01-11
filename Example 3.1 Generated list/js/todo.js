@@ -1,24 +1,52 @@
-/* !Пример требуе рефакторинга!
- * Нужно выделить функции и распутать зависимости DOM.
- * Однако, он демонстрирует возможности выборки элементов в дереве DOM.
+/* Рефакторинг можно еще продолжить, но в целом методы стали короткими и отвечают принципу единой ответственности.
+ * Обратите внимание на функции with
  */
 window.addEventListener("load", () => {
-    let todos = [{
-            text: "Переработать слайды к лекции по управлению DOM",
-            created: new Date(2022, 1, 8, 10, 15),
-            done: true,
+    let todos = {
+        data: [{
+                text: "Переработать слайды к лекции по управлению DOM",
+                created: new Date(2022, 1, 8, 10, 15),
+                done: true,
+            },
+            {
+                text: "Приготовить пример для лекции по управлению DOM",
+                created: new Date(2022, 1, 9, 23, 59),
+                done: true,
+            },
+            {
+                text: "Отрефакторить пример для лекции по управлению DOM",
+                created: new Date(2022, 1, 10, 12, 00),
+                done: false,
+            },
+        ],
+
+        add(todo) {
+            this.data.push(todo);
         },
-        {
-            text: "Приготовить пример для лекции по управлению DOM",
-            created: new Date(2022, 1, 9, 23, 59),
-            done: true,
+
+        remove(todo) {
+            this.data.filter((td) => td !== todo);
         },
-        {
-            text: "Отрефакторить пример для лекции по управлению DOM",
-            created: new Date(2022, 1, 10, 12, 00),
-            done: false,
+
+        moveUp(todo) {
+            const indexofTodo = this.data.indexOf(todo);
+            if (indexofTodo <= 0) return;
+            this.data[indexofTodo] = this.data[indexofTodo - 1];
+            this.data[indexofTodo - 1] = todo;
         },
-    ];
+
+        moveDown(todo) {
+            const indexofTodo = this.data.indexOf(todo);
+            if (indexofTodo < 0 || indexofTodo >= this.data.length - 1) return;
+            this.data[indexofTodo] = this.data[indexofTodo + 1];
+            this.data[indexofTodo + 1] = todo;
+        },
+    };
+
+    function withConsoleLogTodos(callback) {
+        callback();
+        console.log(todos.data);
+    }
 
     let todoListContainer = document.getElementById("todoList-container");
     todoListContainer.append(createTodoList());
@@ -32,30 +60,32 @@ window.addEventListener("load", () => {
             created: new Date(),
             done: false,
         };
-        todos.push(newItem);
-        todoListContainer.firstChild.lastChild.querySelector(
-            ".todo-button-down"
-        ).disabled = false;
-        todoListContainer.firstChild.append(createTodoListItem(newItem));
-        todoListContainer.firstChild.lastChild.querySelector(
-            ".todo-button-down"
-        ).disabled = true;
+        todos.add(newItem);
+        let todoList = document.getElementById("todoList");
+        withDisablingUpDownButtons(todoList, () =>
+            todoList.append(createTodoListItem(newItem))
+        );
         ev.target.reset();
     });
 
     function createTodoList() {
         let todoList = document.createElement("ol");
+        todoList.id = "todoList";
         todoList.classList.add("list-group");
         todoList.classList.add("list-group-numbered");
 
-        for (let todo of todos) {
-            todoList.append(createTodoListItem(todo));
-        }
-
-        todoList.firstChild.querySelector(".todo-button-up").disabled = true;
-        todoList.lastChild.querySelector(".todo-button-down").disabled = true;
+        fillTodoListItems(todoList);
 
         return todoList;
+    }
+
+    function fillTodoListItems(todoList) {
+        if (!todoList) todoList = document.getElementById("todoList");
+        for (let todo of todos.data) {
+            todoList.append(createTodoListItem(todo));
+        }
+        todoList.firstChild.querySelector(".todo-button-up").disabled = true;
+        todoList.lastChild.querySelector(".todo-button-down").disabled = true;
     }
 
     function createTodoListItem(todo) {
@@ -63,128 +93,110 @@ window.addEventListener("load", () => {
         todoListItem.classList.add("todo");
         todoListItem.classList.add("list-group-item");
 
-        let todoText = document.createElement("p");
-        todoText.classList.add("todo-text");
-        todoText.innerText = todo.text;
-        todoListItem.append(todoText);
-
-        let todoCheckbox = document.createElement("input");
-        todoCheckbox.classList.add("todo-done");
-        todoCheckbox.type = "checkbox";
-        todoCheckbox.checked = todo.done;
-        todoCheckbox.addEventListener(
-            "change",
-            (ev) => (todo.done = ev.target.checked)
-        );
-        todoListItem.prepend(todoCheckbox);
-
-        let todoControls = document.createElement("div");
-        todoControls.classList.add("todo-controls");
-
-        let todoMoveupButton = document.createElement("button");
-        todoMoveupButton.classList.add("todo-button-up");
-        todoMoveupButton.classList.add("btn");
-        todoMoveupButton.classList.add("btn-outline-secondary");
-        todoMoveupButton.classList.add("btn-sm");
-        todoMoveupButton.classList.add("bi");
-        todoMoveupButton.classList.add("bi-caret-up");
-        todoMoveupButton.addEventListener("click", () =>
-            moveupTodoListItem(todo, todoListItem)
-        );
-
-        let todoMovedownButton = document.createElement("button");
-        todoMovedownButton.classList.add("todo-button-down");
-        todoMovedownButton.classList.add("btn");
-        todoMovedownButton.classList.add("btn-outline-secondary");
-        todoMovedownButton.classList.add("btn-sm");
-        todoMovedownButton.classList.add("bi");
-        todoMovedownButton.classList.add("bi-caret-down");
-        todoMovedownButton.addEventListener("click", () =>
-            movedownTodoListItem(todo, todoListItem)
-        );
-
-        let todoRemoveButton = document.createElement("button");
-        todoRemoveButton.classList.add("todo-button-remove");
-        todoRemoveButton.classList.add("btn");
-        todoRemoveButton.classList.add("btn-outline-danger");
-        todoRemoveButton.classList.add("btn-sm");
-        todoRemoveButton.classList.add("bi");
-        todoRemoveButton.classList.add("bi-trash-fill");
-        todoRemoveButton.addEventListener("click", () =>
-            removeTodoListItem(todo, todoListItem)
-        );
-
-        todoControls.append(todoMoveupButton);
-        todoControls.append(todoMovedownButton);
-        todoControls.append(todoRemoveButton);
-
-        todoListItem.append(todoControls);
-
-        let todoDate = document.createElement("small");
-        todoDate.classList.add("todo-created");
-        todoDate.innerText = "Создано: " + todo.created.toLocaleString();
-        todoListItem.append(todoDate);
+        todoListItem.append(createTodoListItemDone());
+        todoListItem.append(createTodoListItemText());
+        todoListItem.append(createTodoListItemsControls(todoListItem));
+        todoListItem.append(createTodoListItemDate());
 
         return todoListItem;
+
+        function createTodoListItemDate() {
+            let todoDate = document.createElement("small");
+            todoDate.classList.add("todo-created");
+            todoDate.innerText = "Создано: " + todo.created.toLocaleString();
+            return todoDate;
+        }
+
+        function createTodoListItemsControls(todoListItem) {
+            let todoControls = document.createElement("div");
+            todoControls.classList.add("todo-controls");
+            todoControls.append(
+                createIconButton(
+                    "todo-button-up",
+                    "caret-up",
+                    "secondary",
+                    () => moveupTodoListItem(todo, todoListItem)
+                )
+            );
+            todoControls.append(
+                createIconButton(
+                    "todo-button-down",
+                    "caret-down",
+                    "secondary",
+                    () => movedownTodoListItem(todo, todoListItem)
+                )
+            );
+            todoControls.append(
+                createIconButton(
+                    "todo-button-remove",
+                    "trash-fill",
+                    "danger",
+                    () => removeTodoListItem(todo, todoListItem)
+                )
+            );
+            return todoControls;
+        }
+
+        function createTodoListItemDone() {
+            let todoCheckbox = document.createElement("input");
+            todoCheckbox.classList.add("todo-done");
+            todoCheckbox.type = "checkbox";
+            todoCheckbox.checked = todo.done;
+            todoCheckbox.addEventListener(
+                "change",
+                (ev) => (todo.done = ev.target.checked)
+            );
+            return todoCheckbox;
+        }
+
+        function createTodoListItemText() {
+            let todoText = document.createElement("p");
+            todoText.classList.add("todo-text");
+            todoText.innerText = todo.text;
+            return todoText;
+        }
+
+        function createIconButton(className, iconName, color, onClick) {
+            let button = document.createElement("button");
+            button.classList.add(className);
+            button.classList.add("btn");
+            button.classList.add("btn-outline-" + color);
+            button.classList.add("btn-sm");
+            button.classList.add("bi");
+            button.classList.add("bi-" + iconName);
+            button.addEventListener("click", onClick);
+            return button;
+        }
     }
 
     function removeTodoListItem(todo, todoListItem) {
-        todos = todos.filter((td) => td !== todo);
-        console.log(todos);
-        todoListItem.remove();
+        withConsoleLogTodos(() => todos.remove(todo));
+        withDisablingUpDownButtons(todoListItem.parentNode, () =>
+            todoListItem.remove()
+        );
     }
 
     function moveupTodoListItem(todo, todoListItem) {
-        const indexofTodo = todos.indexOf(todo);
-        if (indexofTodo <= 0) return;
-        todos[indexofTodo] = todos[indexofTodo - 1];
-        todos[indexofTodo - 1] = todo;
-        console.log(todos);
-
-        todoListItem.parentNode.firstChild.querySelector(
-            ".todo-button-up"
-        ).disabled = false;
-        todoListItem.parentNode.lastChild.querySelector(
-            ".todo-button-down"
-        ).disabled = false;
-        todoListItem.parentNode.insertBefore(
-            todoListItem,
-            todoListItem.previousSibling
+        withConsoleLogTodos(() => todos.moveUp(todo));
+        withDisablingUpDownButtons(todoListItem.parentNode, () =>
+            todoListItem.previousSibling.before(todoListItem)
         );
-        todoListItem.parentNode.firstChild.querySelector(
-            ".todo-button-up"
-        ).disabled = true;
-        todoListItem.parentNode.lastChild.querySelector(
-            ".todo-button-down"
-        ).disabled = true;
     }
 
     function movedownTodoListItem(todo, todoListItem) {
-        const indexofTodo = todos.indexOf(todo);
-        if (indexofTodo < 0 || indexofTodo >= todos.length - 1) return;
-        todos[indexofTodo] = todos[indexofTodo + 1];
-        todos[indexofTodo + 1] = todo;
-        console.log(todos);
+        withConsoleLogTodos(() => todos.moveDown(todo));
+        withDisablingUpDownButtons(todoListItem.parentNode, () =>
+            todoListItem.nextSibling.after(todoListItem)
+        );
+    }
 
-        todoListItem.parentNode.firstChild.querySelector(
-            ".todo-button-up"
-        ).disabled = false;
-        todoListItem.parentNode.lastChild.querySelector(
-            ".todo-button-down"
-        ).disabled = false;
-        if (indexofTodo === todos.length - 2) {
-            todoListItem.parentNode.append(todoListItem);
-        } else {
-            todoListItem.parentNode.insertBefore(
-                todoListItem,
-                todoListItem.nextSibling.nextSibling
-            );
-        }
-        todoListItem.parentNode.firstChild.querySelector(
-            ".todo-button-up"
-        ).disabled = true;
-        todoListItem.parentNode.lastChild.querySelector(
-            ".todo-button-down"
-        ).disabled = true;
+    function withDisablingUpDownButtons(todoList, callback) {
+        todoList.firstChild.querySelector(".todo-button-up").disabled = false;
+        todoList.lastChild.querySelector(".todo-button-down").disabled = false;
+
+        callback();
+
+        todoList.firstChild.querySelector(".todo-button-up").disabled = true;
+        todoList.lastChild.querySelector(".todo-button-down").disabled = true;
     }
 });
