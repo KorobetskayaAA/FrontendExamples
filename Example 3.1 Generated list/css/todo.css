@@ -4,6 +4,7 @@
     justify-content: space-between;
     align-items: baseline;
     gap: 0.25em;
+    cursor: grab;
 }
 
 .todo-text {
@@ -16,4 +17,8 @@
 .todo-created {
     width: 100%;
     align-self: end;
+}
+
+.dragging {
+    opacity: 0.6;
 }

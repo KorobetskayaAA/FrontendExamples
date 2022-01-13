@@ -101,6 +101,8 @@ window.addEventListener("load", () => {
         todoListItem.append(createTodoListItemsControls(todoListItem));
         todoListItem.append(createTodoListItemDate());
 
+        makeListItemDraggable();
+
         return todoListItem;
 
         function createTodoListItemDate() {
@@ -169,6 +171,37 @@ window.addEventListener("load", () => {
             button.classList.add("bi-" + iconName);
             button.addEventListener("click", onClick);
             return button;
+        }
+
+        function makeListItemDraggable() {
+            todoListItem.draggable = true;
+
+            todoListItem.addEventListener("dragstart", (evt) => {
+                evt.target.classList.add("dragging");
+            });
+            todoListItem.addEventListener("dragend", (evt) => {
+                evt.target.classList.remove("dragging");
+            });
+            todoListItem.addEventListener("dragover", (evt) => {
+                evt.preventDefault();
+                const draggingElement = todoList.querySelector(".dragging");
+                const dragTarget = evt.target;
+                // нельзя бросить на себя и можно перетаскивать только задачи
+                if (
+                    draggingElement === dragTarget ||
+                    !dragTarget.classList.contains("todo")
+                ) {
+                    return;
+                }
+                const dragTargetRect = dragTarget.getBoundingClientRect();
+                const dragTargetMiddle =
+                    (dragTargetRect.top + dragTargetRect.bottom) / 2;
+                if (evt.clientY > dragTargetMiddle) {
+                    dragTarget.after(draggingElement);
+                } else {
+                    dragTarget.before(draggingElement);
+                }
+            });
         }
     }
 
