@@ -2,22 +2,29 @@
  * Обратите внимание на функции with
  */
 window.addEventListener("load", () => {
+    function Todo(text, created, done) {
+        this.text = text;
+        this.created = created || new Date();
+        this.done = !!done;
+    }
+
     let todos = {
-        data: [{
-                text: "Переработать слайды к лекции по управлению DOM",
-                created: new Date(2022, 1, 8, 10, 15),
-                done: true,
-            },
-            {
-                text: "Приготовить пример для лекции по управлению DOM",
-                created: new Date(2022, 1, 9, 23, 59),
-                done: true,
-            },
-            {
-                text: "Отрефакторить пример для лекции по управлению DOM",
-                created: new Date(2022, 1, 10, 12, 00),
-                done: false,
-            },
+        data: [
+            new Todo(
+                "Переработать слайды к лекции по управлению DOM",
+                new Date(2022, 1, 8, 10, 15),
+                true
+            ),
+            new Todo(
+                "Приготовить пример для лекции по управлению DOM",
+                new Date(2022, 1, 9, 23, 59),
+                true
+            ),
+            new Todo(
+                "Отрефакторить пример для лекции по управлению DOM",
+                new Date(2022, 1, 10, 12, 00),
+                false
+            ),
         ],
 
         add(todo) {
@@ -25,7 +32,7 @@ window.addEventListener("load", () => {
         },
 
         remove(todo) {
-            this.data.filter((td) => td !== todo);
+            this.data = this.data.filter((td) => td !== todo);
         },
 
         moveUp(todo) {
@@ -55,11 +62,7 @@ window.addEventListener("load", () => {
     todoAddForm.addEventListener("submit", (ev) => {
         ev.preventDefault();
         ev.stopPropagation();
-        const newItem = {
-            text: ev.target.elements.text.value,
-            created: new Date(),
-            done: false,
-        };
+        const newItem = new Todo(ev.target.elements.text.value);
         todos.add(newItem);
         let todoList = document.getElementById("todoList");
         withDisablingUpDownButtons(todoList, () =>
