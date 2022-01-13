@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async is a lie?</title>
+    <script src="js/chebyshev.js"></script>
+</head>
+
+<body>
+    <div>
+        <h2>Долгие вычисления</h2>
+        <label><input type="radio" name="async-option" value="none" checked>без async</label>
+        <label><input type="radio" name="async-option" value="async">только async без await</label>
+        <label><input type="radio" name="async-option" value="asyncawait">async+await</label>
+        <button type="submit" id="calc-chebyshev">Пуск</button>
+        <div id="result-chebyshev"></div>
+    </div>
+</body>
+
+</html>
