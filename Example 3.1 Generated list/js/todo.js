@@ -1,31 +1,27 @@
-/* Рефакторинг можно еще продолжить, но в целом методы стали короткими и отвечают принципу единой ответственности.
- * Обратите внимание на функции with
- */
 window.addEventListener("load", () => {
+    const api = {
+        async getAll() {
+            const url = "https://localhost:5001/api/todo";
+            // !Ошибка! Невозможно выполнить запрос из локального файла (file://) на сервер https://localhost:5001/.
+            // Необходимо разместить страницу на том же сервере, либо настроить на сервере политики CORS.
+            const response = await fetch(url);
+            if (!response.ok) {
+                const errorMessage =
+                    (await response.body()) || response.statusText;
+                console.error(errorMessage);
+                throw Error(errorMessage);
+            }
+            return await response.json();
+        },
+    };
+
     function Todo(text, created, done) {
         this.text = text;
         this.created = created || new Date();
         this.done = !!done;
     }
-
-    let todos = {
-        data: [
-            new Todo(
-                "Переработать слайды к лекции по управлению DOM",
-                new Date(2022, 1, 8, 10, 15),
-                true
-            ),
-            new Todo(
-                "Приготовить пример для лекции по управлению DOM",
-                new Date(2022, 1, 9, 23, 59),
-                true
-            ),
-            new Todo(
-                "Отрефакторить пример для лекции по управлению DOM",
-                new Date(2022, 1, 10, 12, 00),
-                false
-            ),
-        ],
+    const todos = {
+        data: [],
 
         add(todo) {
             this.data.push(todo);
@@ -56,7 +52,15 @@ window.addEventListener("load", () => {
     }
 
     let todoListContainer = document.getElementById("todoList-container");
-    todoListContainer.append(createTodoList());
+    api.getAll()
+        .then((result) => {
+            todos.data = result;
+            todoListContainer.replaceChildren(createTodoList());
+        })
+        .catch((err) => {
+            todos.error = err;
+            todoListContainer.replaceChildren(setAlert(err, "danger"));
+        });
 
     let todoAddForm = document.getElementById("todoList-form");
     todoAddForm.addEventListener("submit", (ev) => {
@@ -87,8 +91,14 @@ window.addEventListener("load", () => {
         for (let todo of todos.data) {
             todoList.append(createTodoListItem(todo));
         }
-        todoList.firstChild.querySelector(".todo-button-up").disabled = true;
-        todoList.lastChild.querySelector(".todo-button-down").disabled = true;
+        if (todoList.children.length > 0) {
+            todoList.firstChild.querySelector(
+                ".todo-button-up"
+            ).disabled = true;
+            todoList.lastChild.querySelector(
+                ".todo-button-down"
+            ).disabled = true;
+        }
     }
 
     function createTodoListItem(todo) {
@@ -234,5 +244,16 @@ window.addEventListener("load", () => {
 
         todoList.firstChild.querySelector(".todo-button-up").disabled = true;
         todoList.lastChild.querySelector(".todo-button-down").disabled = true;
+    }
+
+    function setAlert(content, color = "primary") {
+        let alert = document.querySelector("div.alert");
+        if (!alert) {
+            alert = document.createElement("div");
+            alert.className = "alert alert-" + color;
+            alert.role = "alert";
+        }
+        alert.innerHTML = content;
+        return alert;
     }
 });
