@@ -1,0 +1,37 @@
+#test__template {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    margin: 5px 12px;
+    gap: 5px;
+}
+
+.container {
+    max-width: 99vw;
+    width: 1024px;
+    margin: 0 auto;
+}
+
+section {
+    padding: 2em;
+    margin: 2em 0;
+    background-color: white;
+}
+
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: whitesmoke;
+}
+
+nav {
+    display: block;
+    margin: 0;
+    min-height: 2em;
+    background-color: tomato;
+    color: wheat;
+}
+
+h1 {
+    margin: 0;
+}

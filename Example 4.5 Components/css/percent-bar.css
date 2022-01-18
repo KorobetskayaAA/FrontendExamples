@@ -1,0 +1,70 @@
+percent-bar {
+    display: block;
+}
+
+.percent-bar__root {
+    height: 1.25em;
+    margin: 0 2px;
+    padding: 0;
+    display: grid;
+}
+
+.percent-bar__bg {
+    grid-row: 1;
+    grid-column: 1;
+    align-self: stretch;
+    justify-self: stretch;
+    background-color: lightgray;
+}
+
+.percent-bar__fulfilled {
+    grid-row: 1;
+    grid-column: 1;
+    margin: 0;
+    background-color: gray;
+}
+
+.percent-bar__dataLabel {
+    grid-row: 1;
+    grid-column: 1;
+    align-self: center;
+    justify-self: center;
+    margin: 0 2px;
+    font-size: 0.9em;
+    color: white;
+    text-shadow: 1px 0px 2px black;
+    background: none;
+    font-family: sans-serif;
+}
+
+.blue .percent-bar__bg {
+    background-color: #8090FF;
+}
+
+.blue .percent-bar__fulfilled {
+    background-color: #0010FF;
+}
+
+.red .percent-bar__bg {
+    background-color: #FF8080;
+}
+
+.red .percent-bar__fulfilled {
+    background-color: #BB0000;
+}
+
+.green .percent-bar__bg {
+    background-color: #B0DDB0;
+}
+
+.green .percent-bar__fulfilled {
+    background-color: #009900;
+}
+
+.black .percent-bar__bg {
+    background-color: #999;
+}
+
+.black .percent-bar__fulfilled {
+    background-color: #000;
+}
