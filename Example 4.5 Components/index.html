@@ -1,76 +1,93 @@
 <!DOCTYPE html>
 <html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Компоненты</title>
+        <link href="./css/style.css" rel="stylesheet" />
+        <script src="./js/data.js"></script>
+        <script src="./js/percent-bar.js"></script>
+        <script src="./js/percent-chart.js"></script>
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Компоненты</title>
-    <link href="./css/style.css" rel="stylesheet">
-    <script src='./js/data.js'></script>
-    <script src='./js/percent-bar.js'></script>
-    <script src='./js/percent-chart.js'></script>
-</head>
+    <body>
+        <nav>
+            <div class="container">
+                <h1>Создание компонентов</h1>
+            </div>
+        </nav>
 
-<body>
-    <nav>
-        <div class="container">
-            <h1>Создание компонентов</h1>
-        </div>
+        <section class="container">
+            <h2>Проценты - Shadow DOM</h2>
+            <div id="test__percent-bar">
+                <percent-bar color="black"></percent-bar>
+                <percent-bar percent="50" color="blue"></percent-bar>
+                <percent-bar percent="10" color="green"></percent-bar>
+                <script>
+                    const pbs = document.querySelectorAll("percent-bar");
+                    pbs[0].setAttribute("percent", 98.9999999);
+                    pbs[1].percent = 25.5;
+                </script>
+            </div>
+        </section>
 
-    </nav>
-
-    <section class="container">
-        <h2>Проценты - Shadow DOM</h2>
-        <div id="test__percent-bar">
-            <percent-bar color="black"></percent-bar>
-            <percent-bar percent="50" color="blue"></percent-bar>
-            <percent-bar percent="10" color="green"></percent-bar>
+        <section class="container">
+            <h2>Вакцинация - Template</h2>
+            <div id="test__template">
+                <template id="percent-bar__template">
+                    <label class="percent-bar__label_before"></label>
+                    <percent-bar percent="0" color="red"></percent-bar>
+                    <label class="percent-bar__label_after"></label>
+                </template>
+            </div>
             <script>
-                const pbs = document.querySelectorAll("percent-bar");
-                pbs[0].setAttribute("percent", 98.9999999);
-                pbs[1].percent = 25.5;
+                const pb_template = document.getElementById(
+                    "percent-bar__template"
+                );
+                for (let i of Object.keys(data).slice(0, 10)) {
+                    const country = data[i].name_ru;
+                    const updated = new Date(data[i].date);
+                    const percent = (data[i].peop_full_vac / data[i].pop) * 100;
+
+                    const pb_clone = pb_template.content.cloneNode(true);
+                    const pb = pb_clone.querySelector("percent-bar");
+                    const pb_label_before = pb_clone.querySelector(
+                        ".percent-bar__label_before"
+                    );
+                    const pb_label_after = pb_clone.querySelector(
+                        ".percent-bar__label_after"
+                    );
+
+                    pb.setAttribute("percent", percent);
+                    pb_label_before.innerText = country;
+                    pb_label_after.innerText = `Дата обновления: ${updated.toLocaleDateString()}`;
+                    pb_template.parentNode.append(pb_clone);
+                }
             </script>
-        </div>
-    </section>
+        </section>
 
-    <section class="container">
-        <h2>Вакцинация - Template</h2>
-        <div id="test__template">
-            <template id="percent-bar__template">
-                <label class="percent-bar__label_before"></label>
-                <percent-bar percent="0" color="red"></percent-bar>
-                <label class="percent-bar__label_after"></label>
-            </template>
-        </div>
-        <script>
-            const pb_template = document.getElementById("percent-bar__template");
-            for (let i of Object.keys(data).slice(0, 10)) {
-                const country = data[i].name_ru;
-                const updated = new Date(data[i].date);
-                const percent = data[i].peop_full_vac / data[i].pop * 100;
-
-                const pb_clone = pb_template.content.cloneNode(true);
-                const pb = pb_clone.querySelector("percent-bar");
-                const pb_label_before = pb_clone.querySelector(".percent-bar__label_before");
-                const pb_label_after = pb_clone.querySelector(".percent-bar__label_after");
-
-                pb.setAttribute("percent", percent);
-                pb_label_before.innerText = country;
-                pb_label_after.innerText = `Дата обновления: ${updated.toLocaleDateString()}`;
-                pb_template.parentNode.append(pb_clone);
-            }
-        </script>
-    </section>
-
-
-    <section class="container">
-        <h2>Вакцинация - Custom Element</h2>
-        <div id="test__custom">
-            <percent-chart collapse loaddata="Object.values(data).map(d => ({ before: d.name, percent: 100 * d.peop_full_vac / d.pop, after: d.date}))">
-            </percent-chart>
-        </div>
-    </section>
-</body>
-
+        <section class="container">
+            <h2>Вакцинация - Custom Element</h2>
+            <div id="test__custom">
+                <percent-chart collapse> </percent-chart>
+                <script>
+                    // loaddata="Object.values(data).map(d => ({ before: d.name, percent: 100 * d.peop_full_vac / d.pop, after: d.date}))"
+                    const pc =
+                        document.getElementsByTagName("percent-chart")[0];
+                    pc.loaddata = fetch(
+                        "https://milab.s3.yandex.net/2020/covid19-stat/data/v10/default_data.json?v=1642511427451"
+                    )
+                        .then((response) => response.json())
+                        .then((body) =>
+                            Object.values(body.vaccination_struct).map((d) => ({
+                                before: d.name_ru,
+                                percent: (100 * d.peop_full_vac) / d.pop,
+                                after: d.date,
+                            }))
+                        );
+                </script>
+            </div>
+        </section>
+    </body>
 </html>

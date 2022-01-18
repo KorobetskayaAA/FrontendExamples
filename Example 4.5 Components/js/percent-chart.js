@@ -23,7 +23,7 @@ customElements.define(
         set data(value) {
             this._data = Array.isArray(value) ? value : [value];
             this._data.sort((a, b) => b.percent - a.percent);
-            this.replaceChildren(this.createChart());
+            this.render();
         }
 
         get collapse() {
@@ -31,16 +31,21 @@ customElements.define(
         }
 
         set collapse(value) {
-            this._collapse = value === "" || !!value;
+            this._collapse =
+                value === "false" ? false : value === "" || !!value;
+            this.render();
+        }
+
+        render() {
             this.replaceChildren(this.createChart());
         }
 
         createChart() {
             const chart = document.createElement("div");
             chart.classList.add("percent-chart");
-            const dataToShow = this.collapse ?
-                this.data.slice(0, this._collapsedCount) :
-                this.data;
+            const dataToShow = this.collapse
+                ? this.data.slice(0, this._collapsedCount)
+                : this.data;
             for (let bar of dataToShow) {
                 const label_before = document.createElement("label");
                 label_before.classList.add("percent-chart__label_before");
@@ -64,10 +69,10 @@ customElements.define(
 
         createShowMore() {
             const showMore = document.createElement("button");
-            showMore.textContent = this.collapse ?
-                "Показать больше" :
-                "Показать первые " + this._collapsedCount;
-            showMore.addEventListener("click", (evt) => {
+            showMore.textContent = this.collapse
+                ? "Показать больше"
+                : "Показать первые " + this._collapsedCount;
+            showMore.addEventListener("click", () => {
                 this.collapse = !this.collapse;
             });
             return showMore;
@@ -77,13 +82,21 @@ customElements.define(
             return ["loaddata", "collapse"];
         }
 
+        set loaddata(value) {
+            if (value instanceof Promise) {
+                value.then((data) => (this.data = data));
+            }
+            this.data = value instanceof Function ? value() : value;
+        }
+
         attributeChangedCallback(name, oldValue, newValue) {
             switch (name) {
                 case "loaddata":
+                    const evalNewValue = eval(newValue);
                     this.data =
-                        newValue instanceof Function ?
-                        newValue() :
-                        eval(newValue);
+                        evalNewValue instanceof Function
+                            ? evalNewValue()
+                            : evalNewValue;
                     break;
                 case "collapse":
                     this.collapse = newValue;
