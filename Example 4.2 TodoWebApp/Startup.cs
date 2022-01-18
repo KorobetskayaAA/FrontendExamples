@@ -27,14 +27,14 @@ namespace Todo.Web
         public void ConfigureServices(IServiceCollection services)
         {
             // Разрешить запросы с любого узла
-            // services.AddCors(options =>
-            // {
-            //     options.AddDefaultPolicy(
-            //         builder =>
-            //         {
-            //             builder.AllowAnyOrigin();
-            //         });
-            // });
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin();
+                    });
+            });
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -53,9 +53,9 @@ namespace Todo.Web
             }
 
             app.UseHttpsRedirection();
-            // app.UseCors();
+            app.UseCors();
 
-            app.UseStaticFiles();
+            app.UseFileServer();
 
             app.UseRouting();
 
