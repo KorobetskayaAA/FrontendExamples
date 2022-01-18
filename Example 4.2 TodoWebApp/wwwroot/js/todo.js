@@ -1,4 +1,4 @@
-import { todoApi as api, Todo } from "./api.js";
+import makeApiRequest, { todoApi as api, Todo } from "./api.js";
 
 window.addEventListener("load", () => {
     function withConsoleLogTodos(callback) {
@@ -203,15 +203,15 @@ window.addEventListener("load", () => {
         removeAlert();
         withConsoleLogTodos(() =>
             api
-            .delete(todoListItem.todo)
-            .then(
-                withDisablingUpDownButtons(todoListItem.parentNode, () =>
-                    todoListItem.remove()
+                .delete(todoListItem.todo)
+                .then(
+                    withDisablingUpDownButtons(todoListItem.parentNode, () =>
+                        todoListItem.remove()
+                    )
                 )
-            )
-            .catch((err) => {
-                setAlert(err);
-            })
+                .catch((err) => {
+                    setAlert(err);
+                })
         );
     }
 

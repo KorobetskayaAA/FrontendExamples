@@ -1,6 +1,6 @@
 const apiUrl = "https://localhost:5001/api/";
 
-export async function apiRequest(path, method = "GET", body) {
+async function apiRequest(path, method = "GET", body) {
     const url = new URL(path, apiUrl).href;
     console.log("fetch", url, method);
     const headers = new Headers();
@@ -52,3 +52,5 @@ export function Todo(text, created, done) {
     this.created = created || new Date();
     this.done = !!done;
 }
+
+export default apiRequest;
