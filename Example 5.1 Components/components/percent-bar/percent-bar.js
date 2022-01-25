@@ -1,3 +1,5 @@
+const percentBarUrl = document.currentScript.src;
+
 customElements.define(
     "percent-bar",
     class extends HTMLElement {
@@ -26,7 +28,7 @@ customElements.define(
 
         createStylesLink() {
             const style = document.createElement("link");
-            style.href = "./css/percent-bar.css";
+            style.href = new URL("./percent-bar.css", percentBarUrl).href;
             style.rel = "stylesheet";
             style.type = "text/css";
             return style;

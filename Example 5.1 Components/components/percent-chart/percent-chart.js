@@ -1,3 +1,5 @@
+const percentChartUrl = document.currentScript.src;
+
 customElements.define(
     "percent-chart",
     class extends HTMLElement {
@@ -10,7 +12,7 @@ customElements.define(
 
         createStylesLink() {
             const style = document.createElement("link");
-            style.href = "./css/percent-chart.css";
+            style.href = new URL("./percent-chart.css", percentChartUrl).href;
             style.rel = "stylesheet";
             style.type = "text/css";
             return style;
