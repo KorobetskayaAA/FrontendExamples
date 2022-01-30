@@ -1,0 +1,31 @@
+.todo,
+.list-group-item.todo {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.25em;
+    cursor: grab;
+}
+
+.todo-text {
+    flex: 1;
+    font-size: 1.2em;
+}
+
+.todo-created {
+    width: 100%;
+    align-self: end;
+}
+
+.dragging {
+    opacity: 0.6;
+}
+
+.drag-target.before {
+    border-top: 3px solid purple !important;
+}
+
+.drag-target.after {
+    border-bottom: 3px solid purple !important;
+}
