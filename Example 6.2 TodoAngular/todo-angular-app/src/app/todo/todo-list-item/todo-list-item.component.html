@@ -1,0 +1,35 @@
+<li class="list-group-item todo" cdkDrag>
+  {{ index + 1 }}.
+  <input
+    class="todo-done"
+    type="checkbox"
+    [checked]="todo.done"
+    (change)="onChangeDone()"
+  />
+  <p class="todo-text">{{ todo.text }}</p>
+  <div class="todo-controls">
+    <icon-button
+      [className]="'todo-button-up'"
+      [iconName]="'caret-up'"
+      [color]="'secondary'"
+      [disabled]="index === 0"
+      (onClick)="onClickUp()"
+    ></icon-button>
+    <icon-button
+      [className]="'todo-button-down'"
+      [iconName]="'caret-down'"
+      [color]="'secondary'"
+      [disabled]="index === maxIndex"
+      (onClick)="onClickDown()"
+    ></icon-button>
+    <icon-button
+      [className]="'todo-button-remove'"
+      [iconName]="'trash-fill'"
+      [color]="'danger'"
+      (onClick)="onClickRemove()"
+    ></icon-button>
+  </div>
+  <small class="todo-created"
+    >Создано: {{ todo.created.toLocaleString() }}</small
+  >
+</li>

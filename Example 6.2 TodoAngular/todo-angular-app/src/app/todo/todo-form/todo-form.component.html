@@ -1,0 +1,11 @@
+<form class="d-flex gap-2 mb-3">
+  <input
+    type="text"
+    class="form-control"
+    name="text"
+    placeholder="Введите текст задачи"
+    [(ngModel)]="title"
+    (keydown.enter)="submit()"
+  />
+  <button class="btn btn-primary" (click)="submit()">Добавить</button>
+</form>

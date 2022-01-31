@@ -1,0 +1,15 @@
+<div>
+  <div *ngIf="todos.length == 0"><em>Список задач пуст</em></div>
+  <ol
+    class="list-group todo-list"
+    cdkDropList
+    (cdkDropListDropped)="drop($event)"
+  >
+    <app-todo-list-item
+      *ngFor="let todo of todos; let i = index"
+      [todo]="todo"
+      [index]="i"
+      [maxIndex]="maxIndex()"
+    ></app-todo-list-item>
+  </ol>
+</div>
