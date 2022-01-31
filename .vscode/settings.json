@@ -1,5 +1,5 @@
 {
-    "editor.defaultFormatter": "HookyQR.beautify",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
     "beautify.language": {
         "css": ["css", "scss"],

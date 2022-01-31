@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 
 namespace Todo.Web
@@ -32,7 +33,9 @@ namespace Todo.Web
                 options.AddDefaultPolicy(
                     builder =>
                     {
-                        builder.AllowAnyOrigin();
+                        builder.AllowAnyOrigin()
+                                .AllowAnyMethod()
+                                .WithHeaders(HeaderNames.ContentType, "content-type");
                     });
             });
             services.AddControllers();

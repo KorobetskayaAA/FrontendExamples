@@ -1,4 +1,13 @@
 <div>
+  <div *ngIf="loading" class="d-flex justify-content-center align-items-center">
+    <div
+      class="spinner-border text-primary align-self-center"
+      role="status"
+      title="Загрузка..."
+    >
+      <span class="visually-hidden">Загрузка...</span>
+    </div>
+  </div>
   <div *ngIf="todos.length == 0"><em>Список задач пуст</em></div>
   <ol
     class="list-group todo-list"

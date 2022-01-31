@@ -1,40 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Todo } from "../../data/Todo";
 import { TodoListItem } from "./TodoListItem";
 import { TodoForm } from "./TodoForm";
+import { todoApi } from "../../utils/api";
 
 import "./Todo.css";
 
-const mockTodos = [
-    {
-        id: 1,
-        text: "Test 1",
-        created: new Date(),
-        done: false,
-    },
-    {
-        id: 2,
-        text: "Test 2",
-        created: new Date(),
-        done: true,
-    },
-    {
-        id: 3,
-        text: "Test 3",
-        created: new Date(),
-        done: false,
-    },
-];
-
 export const TodoList: React.FC = () => {
-    const [todos, setTodos] = React.useState<Todo[]>(mockTodos);
+    const [todos, setTodos] = React.useState<Todo[]>([]);
     const [dragTargetIndex, setDragTargetIndex] = React.useState<number | null>(
         null
     );
+    const [loading, setLoading] = useState(true);
 
-    function moveTodoListItem(item: Todo, index?: number) {
-        let newTodos = todos;
+    useEffect(() => {
+        if (loading) {
+            todoApi
+                .getAll()
+                .then((todos) => {
+                    setTodos(todos);
+                })
+                .finally(() => setLoading(false));
+        }
+    }, [loading]);
+
+    function moveTodoListItem(todo: Todo, index?: number) {
         if (index === undefined) {
             if (dragTargetIndex !== null) {
                 index = dragTargetIndex;
@@ -42,25 +33,36 @@ export const TodoList: React.FC = () => {
                 return;
             }
         }
-        newTodos = newTodos.filter((td, i) => i === index || td.id !== item.id);
-        newTodos.splice(index, 0, item);
-        setTodos(newTodos);
+        todoApi.moveto(todo, todos[index], true).then(() => {
+            const newTodos = todos.filter(
+                (td, i) => i === index || td.id !== todo.id
+            );
+            newTodos.splice(index || 0, 0, todo);
+            setTodos(newTodos);
+        });
     }
 
-    function removeTodoListItem(item: Todo) {
-        const newTodos = todos.filter((td) => td !== item && td.id !== item.id);
-        setTodos(newTodos);
+    function removeTodoListItem(todo: Todo) {
+        todoApi.delete(todo).then(() => setLoading(true));
     }
 
     function addTodo(todo: Todo) {
-        todo.id =
-            todos.reduce(
-                (maxId, todo) => (todo.id > maxId ? todo.id : maxId),
-                0
-            ) + 1;
-        setTodos([...todos, todo]);
+        todoApi.post(todo).then(() => setLoading(true));
     }
 
+    if (loading) {
+        return (
+            <div className="d-flex justify-content-center align-items-center">
+                <div
+                    className="spinner-border text-primary"
+                    role="status"
+                    title="Загрузка..."
+                >
+                    <span className="visually-hidden">Загрузка...</span>
+                </div>
+            </div>
+        );
+    }
     return (
         <>
             <TodoForm handleSubmit={(todo) => addTodo(todo)} />
